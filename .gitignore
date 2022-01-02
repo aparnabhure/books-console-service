@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Ignore secure bundle to get checkin to missuse of the data ###
+src/main/resources/secure-connect-sample-books-service.zip

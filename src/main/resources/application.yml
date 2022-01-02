@@ -4,5 +4,26 @@ spring:
       client:
         registration:
           github:
-            client-id: <clientID>
-            client-secret: <clientSecret>
+            client-id: Iv1.2a0f892bdd1c4b18
+            client-secret: d98d15f9a18e3df5b72a26fc732670ae72a1f630
+
+spring.data:
+  cassandra:
+    keyspace-name: sample_books
+    username: bsiZFRMYSqvPaPuFusIrmOZK
+    password: KpS2f40zjFzXgMfeapAzx0+NJArKrcOCKj,NbNoRqua3imMqmuT80P6QMSTTg_mJC0DjHjaz3J7X4AvaLd9PcA+p3eEQmTAZlxQ-RLFz++f8xCbDmQ+EtJeivHCFXm0f
+    schema-action: create-if-not-exists
+    request:
+      timeout: 10s
+    connection:
+      connect-timeout: 10s
+      init-query-timeout: 10s
+
+datastax.astra:
+  secure-connect-bundle: C:\Users\Aparna\Documents\GitHub\books-console-service\src\main\resources\secure-connect-sample-books-service.zip
+
+astra.db:
+  id: 89c5c725-529c-440a-9900-daeef23df95c-1
+  region: asia-south1
+  keyspace: sample_books
+  application.token: AstraCS:bsiZFRMYSqvPaPuFusIrmOZK:37330c0a93f405e68e354b4ff7d8d0ed66a6ff277dd0d4f23aa9ab138cdc0fac
