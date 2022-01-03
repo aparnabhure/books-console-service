@@ -20,7 +20,7 @@ spring.data:
       init-query-timeout: 10s
 
 datastax.astra:
-  secure-connect-bundle: C:\Users\Aparna\Documents\GitHub\books-console-service\src\main\resources\secure-connect-sample-books-service.zip
+  secure-connect-bundle: secure-connect-sample-books-service.zip
 
 astra.db:
   id: 89c5c725-529c-440a-9900-daeef23df95c-1
