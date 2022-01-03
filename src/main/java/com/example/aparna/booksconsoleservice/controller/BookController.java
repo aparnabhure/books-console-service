@@ -22,8 +22,8 @@ public class BookController {
         Optional<Book> opt = bookRepo.findById(bookId);
         if(opt.isPresent()){
             Book book = opt.get();
-            String coverImageUrl = "/images/no-image.png";
-            if (book.getCovers() != null && book.getCovers().size() > 0) {
+            String coverImageUrl = "/images/no_image.png";
+            if (book.getCovers() != null && !book.getCovers().isEmpty()) {
                 coverImageUrl = COVER_IMAGE_ROOT + book.getCovers().get(0) + "-L.jpg";
             }
             model.addAttribute("coverImage", coverImageUrl);
