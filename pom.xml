@@ -47,17 +47,10 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-jose</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.webjars</groupId>-->
-<!--			<artifactId>bootstrap</artifactId>-->
-<!--			<version>${bootstrap.version}</version>-->
-<!--		</dependency>-->
-<!--		&lt;!&ndash; https://mvnrepository.com/artifact/org.webjars/webjars-locator &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.webjars</groupId>-->
-<!--			<artifactId>webjars-locator</artifactId>-->
-<!--			<version>${webjars-locator.version}</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
