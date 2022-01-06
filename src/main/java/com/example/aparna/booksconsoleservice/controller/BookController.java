@@ -51,12 +51,28 @@ public class BookController {
     private String searchBook(@RequestParam String query, Model model){
         Mono<SearchResult> mono = webClient.get().uri("?q={query}", query).retrieve().bodyToMono(SearchResult.class);
         SearchResult result = mono.block();
-        if(result != null){
-            List<SearchDocResult> docs = result.getDocs().stream().limit(10).collect(Collectors.toList());
-            model.addAttribute("searchResult", docs);
-        }else{
-            model.addAttribute("searchResult", null);
+        if(result == null){
+            model.addAttribute("searchResults", new ArrayList<>());
+        }else {
+            List<SearchDocResult> books = result.getDocs()
+                .stream()
+                .limit(10)
+                .map(bookResult -> {
+                    bookResult.setKey(bookResult.getKey().replace("/works/", ""));
+                    String coverId = bookResult.getCoverId();
+                    if (!StringUtils.isEmpty(coverId)) {
+                        coverId = COVER_IMAGE_ROOT + coverId + "-M.jpg";
+                    } else {
+                        coverId = "/images/no_image.png";
+                    }
+                    bookResult.setCoverId(coverId);
+                    return bookResult;
+                })
+                .collect(Collectors.toList());
+
+            model.addAttribute("searchResults", books);
         }
+
 //        List<Book> books = new ArrayList<>();
 //        model.addAttribute("totalResult", result !=null?result.getNumFound():0);
 //        if(result != null){
