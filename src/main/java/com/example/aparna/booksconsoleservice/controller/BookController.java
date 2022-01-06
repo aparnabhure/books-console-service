@@ -3,8 +3,13 @@ package com.example.aparna.booksconsoleservice.controller;
 import com.example.aparna.booksconsoleservice.entities.Book;
 import com.example.aparna.booksconsoleservice.entities.SearchDocResult;
 import com.example.aparna.booksconsoleservice.entities.SearchResult;
+import com.example.aparna.booksconsoleservice.entities.UserBook;
+import com.example.aparna.booksconsoleservice.entities.UserBooksPrimaryKey;
 import com.example.aparna.booksconsoleservice.repository.BookRepo;
+import com.example.aparna.booksconsoleservice.repository.UserBooksRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +34,14 @@ public class BookController {
     @Autowired
     BookRepo bookRepo;
     @Autowired
+    UserBooksRepo userBooksRepo;
+    @Autowired
     WebClient webClient;
 
     @GetMapping(value = "/books/{bookId}")
-    private String getBookById(@PathVariable String bookId, Model model){
+    private String getBookById(@PathVariable String bookId,
+                               Model model,
+                               @AuthenticationPrincipal OAuth2User principal){
         Optional<Book> opt = bookRepo.findById(bookId);
         if(opt.isPresent()){
             Book book = opt.get();
@@ -42,6 +51,21 @@ public class BookController {
             }
             model.addAttribute("coverImage", coverImageUrl);
             model.addAttribute("book", book);
+
+            if(principal != null && principal.getAttribute("login") != null){
+                String userId = principal.getAttribute("login");
+                model.addAttribute("login_id", principal.getAttribute("login"));
+                UserBooksPrimaryKey key = new UserBooksPrimaryKey();
+                key.setBookId(bookId);
+                key.setUserId(userId);
+                Optional<UserBook> userBook = userBooksRepo.findById(key);
+                if(userBook.isPresent()){
+                    model.addAttribute("userBook", userBook.get());
+                }else{
+                    model.addAttribute("userBook", new UserBook());
+                }
+            }
+
             return "book";
         }
         return "book-not-found";
