@@ -1,9 +1,12 @@
 package com.example.aparna.booksconsoleservice.controller;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import com.example.aparna.booksconsoleservice.entities.Book;
+import com.example.aparna.booksconsoleservice.entities.BooksByUser;
 import com.example.aparna.booksconsoleservice.entities.UserBook;
 import com.example.aparna.booksconsoleservice.entities.UserBooksPrimaryKey;
 import com.example.aparna.booksconsoleservice.repository.BookRepo;
+import com.example.aparna.booksconsoleservice.repository.BooksByUserRepo;
 import com.example.aparna.booksconsoleservice.repository.UserBooksRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserBooksController {
@@ -28,6 +34,8 @@ public class UserBooksController {
     UserBooksRepo userBooksRepo;
     @Autowired
     BookRepo bookRepo;
+    @Autowired
+    BooksByUserRepo booksByUserRepo;
 
    @PostMapping("/addUserBook")
     public ModelAndView addBookForUser(@RequestBody MultiValueMap<String, String> formData,
@@ -65,16 +73,16 @@ public class UserBooksController {
 
        userBooksRepo.save(userBook);
 
-//       BooksByUser booksByUser = new BooksByUser();
-//       booksByUser.setId(userId);
-//       booksByUser.setBookId(bookId);
-//       booksByUser.setBookName(book.getName());
-//       booksByUser.setCoverIds(book.getCoverIds());
-//       booksByUser.setAuthorNames(book.getAuthorNames());
-//       booksByUser.setReadingStatus(formData.getFirst("readingStatus"));
-//       booksByUser.setRating(rating);
-//       booksByUserRepository.save(booksByUser);
-
+       BooksByUser booksByUser = new BooksByUser();
+       booksByUser.setId(userId);
+       booksByUser.setBookId(bookId);
+       booksByUser.setTimeUuid(Uuids.timeBased());
+       booksByUser.setBookName(book.getName());
+       booksByUser.setCoverIds(book.getCovers());
+       booksByUser.setAuthorNames(book.getAuthors().values().stream().collect(Collectors.toList()));
+       booksByUser.setReadingStatus(formData.getFirst("readingStatus"));
+       booksByUser.setRating(rating);
+       booksByUserRepo.save(booksByUser);
 
        return new ModelAndView("redirect:/books/" + bookId);
    }
