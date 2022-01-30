@@ -30,3 +30,11 @@ https://www.callicoder.com/spring-boot-actuator-metrics-monitoring-dashboard-pro
 - Few queries examples for prometheus:
 - http_server_requests_seconds_max{method="GET", uri=~"/books.+"}  //Search all uris starts with /books
 - http_server_requests_seconds_max{uri="/home"} for /home exact match
+- http_server_requests_seconds_count{method="GET"}
+- Grafana: To pull metrics from prometheus ( it may directly be use for the app not sure yet)
+- Download and run Grafana local server using docker image > docker run -d --name=grafana -p 3000:3000 grafana/grafana
+- To check if container is available > docker container ls
+- After this you can access grafana dashboard with http://localhost:3000/ uri
+- use default login cred as admin/admin
+- Add Datasource as prometheus from the dashboard->datasource->prometheus option
+- Define prometheus URI as IPAddress:9090, IP is same as your machine IP, localhost will not work
