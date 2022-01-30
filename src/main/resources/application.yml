@@ -9,7 +9,7 @@ spring:
 # to enable actuator endpoints excepts /shutdown , base uri /actuator, have it on different port as 9001 default would be 8080
 management:
   server:
-    port: 9001
+    port: 8080
   endpoints:
     web:
       exposure:

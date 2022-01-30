@@ -78,6 +78,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- micrometer-registry-prometheus for external monitoring system-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.8.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
