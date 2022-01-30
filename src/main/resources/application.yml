@@ -6,8 +6,10 @@ spring:
           github:
             client-id: Iv1.2a0f892bdd1c4b18
             client-secret: d98d15f9a18e3df5b72a26fc732670ae72a1f630
-# to enable actuator endpoints excepts /shutdown , base uri /actuator
+# to enable actuator endpoints excepts /shutdown , base uri /actuator, have it on different port as 9001 default would be 8080
 management:
+  server:
+    port: 9001
   endpoints:
     web:
       exposure:
