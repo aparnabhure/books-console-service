@@ -38,3 +38,6 @@ https://www.callicoder.com/spring-boot-actuator-metrics-monitoring-dashboard-pro
 - use default login cred as admin/admin
 - Add Datasource as prometheus from the dashboard->datasource->prometheus option
 - Define prometheus URI as IPAddress:9090, IP is same as your machine IP, localhost will not work
+- Kill docker all containers > docker kill $(docker ps -q)  
+- The docker ps command will list all running containers. The -q flag will only list the IDs for those containers. Once we have the list of all container IDs, we can simply run the docker kill command, passing all those IDs, and they’ll all be stopped!
+- 
